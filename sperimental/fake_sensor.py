@@ -3,16 +3,28 @@ from datetime import datetime
 import time
 import uuid
 import json
+import random
 from io import BytesIO
 
-key = str(uuid.uuid4())
+keys = [
+    '0f7252db-df96-412a-a0f8-b5d1193b4839',
+    '2527143f-f2ca-48de-bc68-b2537fa8bca3',
+    '3e6292f1-9a37-4bd4-82c1-934b452acef3',
+    'edbb6656-8534-42ae-bdb5-acd2b6ad6827',
+    '0294e93e-7999-41a1-a506-84cb418adffc',
+    '0f4972f4-d6e0-4805-9858-54c70ca27bfe',
+    'd0df5422-b5c9-4e26-9add-2460a46f606e',
+    '6269e1de-cade-464f-9140-e393a4353269',
+    'df4d4c13-0d11-4711-b4d2-7f1c0a64535f',
+    'a9f12689-c19c-41c0-95a8-059b83e4d31f'
+]
 
 while True:
     print("Motion Detected")
-    url = 'http://0.0.0.0:8080/web/detections'
+    url = 'http://localhost:8000/web/detections'
     data = {'detection': json.dumps(
-        {"timestamp": str(datetime.now()), "key": key})}
-    response = requests.get('https://picsum.photos/200/300')
+        {"timestamp": str(datetime.now()), "key": random.choice(keys)})}
+    response = requests.get('https://picsum.photos/256/144')
     img = BytesIO(response.content)
     file = {'file': ('image.jpg', img,
                      'image/jpeg', {'Expires': '0'})}
@@ -21,4 +33,6 @@ while True:
     except requests.exceptions.RequestException as e:
         print(e)
     print("Motion Stopped")
-    time.sleep(30)
+    wait = random.randint(0, 30)
+    print("Waiting for {}s".format(wait))
+    time.sleep(wait)
