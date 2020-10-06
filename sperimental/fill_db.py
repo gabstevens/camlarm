@@ -25,11 +25,11 @@ for i in range(20):
         s = Sensor(name=random.choice(sensor_names), broken=False,
                    note="", location=Location.random())
         s.save()
-    else
-    s = Sensor(name=random.choice(sensor_names),
-               broken=True, note=random.choice(sensor_notes))
-    s.save()
+    else:
+        s = Sensor(name=random.choice(sensor_names),
+                   broken=True, note=random.choice(sensor_notes))
+        s.save()
 
 for i in range(200):
-    d = Detection(timestamp=, photo=, correctness=, sensor=Sensor.random())
+    d = Detection(timestamp=, photo=, correctness=random.randrange(100) < 10, sensor=Sensor.random())
     d.save()
